@@ -131,6 +131,22 @@ The app will automatically detect it:
 
 ---
 
+## 🎨 **Icon Requirements**
+
+To ensure the EXE shows the correct icon:
+
+### ✅ **Place the icon file next to your main script**
+- Ensure that **icon.ico** or **icon.png** is present in the **same directory as the main script** before building.  
+- PyInstaller requires the icon file to exist **physically at build time**:
+
+Your project structure must look like this:
+-     project/
+         |-- yt_downloader.py
+         |-- icon.ico
+         |-- ffmpeg/
+         |-- config/
+---
+
 ## ▶️ **Running the App - Python Script**
 
 -     python YouTube_Video_Audio_Downloader.py
@@ -142,11 +158,13 @@ The app will automatically detect it:
 **🟦 Option A — OneDir build (recommended)**
 
 Includes folders (best for FFmpeg bundling):
+**Note:** You can use icon.ico if available, otherwise, use icon.png.
 
 -     pyinstaller --noconfirm --clean --onedir \
       --name YouTube_Downloader \
       --windowed \
-      --icon icon.ico \
+      --add-data "icon.png;." \
+      --icon=icon.png \
       --add-binary "ffmpeg/bin/ffmpeg.exe;ffmpeg/bin" \
       YouTube_Video_Audio_Downloader.py
 
@@ -164,7 +182,7 @@ Includes folders (best for FFmpeg bundling):
 -     pyinstaller --noconfirm --clean --onefile \
       --name YouTube_Downloader \
       --windowed \
-      --icon icon.ico \
+      --icon icon.png \
       --add-binary "ffmpeg/bin/ffmpeg.exe;ffmpeg/bin" \
       YouTube_Video_Audio_Downloader.py
 
@@ -198,7 +216,7 @@ Solution:
 - Select: ffmpeg/bin/ffmpeg.exe from the ffmpeg installation path
 
 #### ❗ FFmpeg not bundled in EXE
- Ensure to add while creating the exe installer:
+ - Ensure to add while creating the exe installer:
 -     --add-binary "ffmpeg/bin/ffmpeg.exe;ffmpeg/bin"
 
 #### ❗ Long startup time in OneFile mode
