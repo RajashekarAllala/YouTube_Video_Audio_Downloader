@@ -1,17 +1,5 @@
 #!/usr/bin/env python3
-"""
-yt_downloader_all_fixes_ffmpeg_config_full.py
 
-Full script with two ffmpeg options:
-  1) Default path on Windows: <script_dir>/ffmpeg/bin/ffmpeg.exe
-  2) User-configurable path via Settings (persisted in config.json)
-
-This version:
- - Resolves ffmpeg for yt-dlp using `ffmpeg_location` so merging works in frozen builds
- - Allows user to set ffmpeg path in Settings
- - Attempts to use bundled icon for main window and settings dialog (works for frozen onedir)
- - Keeps .part resume files and other behavior from earlier edits
-"""
 import sys
 import threading
 import json
@@ -1962,16 +1950,7 @@ class SettingsDialog:
         ttk.Button(btn_frame, text="Cancel", command=self.top.destroy).grid(row=0, column=1, padx=5)
 
         self.top.columnconfigure(1, weight=1)
-    '''
-    def browse_ffmpeg(self):
-        if platform.system() == "Windows":
-            filetypes = [("Executable", "*.exe"), ("All files", "*.*")]
-        else:
-            filetypes = [("All files", "*.*")]
-        f = filedialog.askopenfilename(title="Select ffmpeg executable", filetypes=filetypes)
-        if f:
-            self.ffmpeg_var.set(f)
-    '''
+    
     def browse_ffmpeg(self):
         """
         Open a file picker correctly from a modal settings dialog.
