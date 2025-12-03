@@ -1556,12 +1556,19 @@ class App:
 
     # ---------------- tree helpers ----------------
     def tree_insert_task(self, t: DownloadTask, at_top: bool = False):
+        if getattr(t, "audio_only", False):
+            audio_fmt = getattr(t, "audio_format", "mp3") or "mp3"
+            audio_br = CONFIG.get("audio_bitrate", "192k") or "192k"
+            res_display = f"{audio_br} ({audio_fmt})"
+        else:
+            res_display = t.resolution or "best"
+            
         values = (
             0,
             t.title or t.url,
             t.url,
             t.dest,
-            t.resolution or "best",
+            res_display,
             "audio" if t.audio_only else "video",
             t.status,
         )
